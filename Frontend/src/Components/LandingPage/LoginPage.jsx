@@ -13,7 +13,6 @@ const styles = {
      } 
 
     body {
-      justify-content: center;
       align-items: center;
       background: #000;
       background: rgb(10, 25, 47);
@@ -47,7 +46,7 @@ const styles = {
 
     section span {
       position: relative;
-      display: black;
+      display: block;
       width: calc(6.25vw - 2px);
       height: calc(6.25vw - 2px);
       background: #181818;
