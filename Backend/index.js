@@ -63,7 +63,7 @@ app.post('/login', async (req, res) => {
 });
 
 // ✅ Register Route (includes all fields)
-const auth = require('./middleware/auth');
+const auth = require('./middlewares/auth');
 
 // ✅ Only Admin can register new users
 app.post('/register', auth, async (req, res) => {
