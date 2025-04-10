@@ -10,6 +10,7 @@ import LandingPage from './Components/LandingPage/Landingpage';
 import LoginPage from './Components/LandingPage/LoginPage';
 import ErrorPage from './Components/ErrorPage';
 import ScrollToTopButton from './Components/LandingPage/ScrollToTopButton';
+import RegisterUser from './Components/Admin/Newuser';
 
 function App() {
   // ✅ useEffect correctly placed inside the component
@@ -22,6 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterUser />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       <ScrollToTopButton />

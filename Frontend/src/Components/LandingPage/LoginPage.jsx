@@ -1,20 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from '../../axiosRoute';
 
 const styles = {
   fontImport: `
     @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
   `,
   global: `
-   * {
+    * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: 'Quicksand', sans-serif;
-     } 
+    }
 
     body {
-      align-items: center;
-      background: #000;
       background: rgb(10, 25, 47);
     }
 
@@ -73,12 +73,10 @@ const styles = {
     }
 
     .signin .content {
-      position: relative;
       width: 100%;
       display: flex;
-      justify-content: center;
-      align-items: center;
       flex-direction: column;
+      align-items: center;
       gap: 40px;
     }
 
@@ -101,7 +99,6 @@ const styles = {
     }
 
     .signin .content .form .inputBox input {
-      position: relative;
       width: 100%;
       background: #333;
       border: none;
@@ -109,7 +106,6 @@ const styles = {
       padding: 25px 10px 7.5px;
       border-radius: 4px;
       color: #fff;
-      font-weight: 500;
       font-size: 1em;
     }
 
@@ -119,8 +115,8 @@ const styles = {
       padding: 15px 10px;
       font-style: normal;
       color: #aaa;
-      transition: 0.5s;
       pointer-events: none;
+      transition: 0.5s;
     }
 
     .signin .content .form .inputBox input:focus ~ i,
@@ -151,12 +147,16 @@ const styles = {
       color: #000;
       font-weight: 600;
       font-size: 1.35em;
-      letter-spacing: 0.05em;
       cursor: pointer;
     }
 
     input[type="submit"]:active {
       opacity: 0.6;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
     }
 
     @media (max-width: 900px) {
@@ -172,16 +172,43 @@ const styles = {
         height: calc(20vw - 2px);
       }
     }
-  `
+  `,
 };
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [error, setError] = useState('');
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post('/login', formData);
+      const { token, user } = res.data;
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+
+      if (user.role === 'Admin') navigate('/admin-dashboard');
+      else if (user.role === 'Employee') navigate('/employee-dashboard');
+      else if (user.role === 'Servicer') navigate('/servicer-dashboard');
+      else navigate('/');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Login failed');
+    }
+  };
+
   return (
     <>
-      {/* Inject global styles */}
-      <style>
-        {styles.fontImport + styles.global}
-      </style>
+      <style>{styles.fontImport + styles.global}</style>
 
       <section>
         {Array.from({ length: 400 }).map((_, i) => (
@@ -191,23 +218,36 @@ const LoginPage = () => {
         <div className="signin">
           <div className="content">
             <h2>Sign In</h2>
-            <div className="form">
+            <form className="form" onSubmit={handleSubmit}>
               <div className="inputBox">
-                <input type="text" required />
-                <i>Username</i>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+                <i>Email</i>
               </div>
               <div className="inputBox">
-                <input type="password" required />
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
                 <i>Password</i>
               </div>
               <div className="links">
                 <a href="#">Forgot Password</a>
-                <a href="#">Signup</a>
+                <a href="/register">Signup</a>
               </div>
+              {error && <div className="error">{error}</div>}
               <div className="inputBox">
                 <input type="submit" value="Login" />
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </section>
