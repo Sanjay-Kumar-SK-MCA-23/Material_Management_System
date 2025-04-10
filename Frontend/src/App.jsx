@@ -10,7 +10,15 @@ import LandingPage from './Components/LandingPage/Landingpage';
 import LoginPage from './Components/LandingPage/LoginPage';
 import ErrorPage from './Components/ErrorPage';
 import ScrollToTopButton from './Components/LandingPage/ScrollToTopButton';
-import RegisterUser from './Components/Admin/Newuser';
+import RegisterUser from './Pages/Admin/NewUser';
+import AdminDashboard from './Pages/Admin/AdminDashboard';
+import ViewUsers from './Pages/Admin/ViewUsers';
+import UserDetail from './pages/Admin/UserDetail';
+import AddProduct from './pages/Admin/AddProduct';
+import ViewProducts from './pages/Admin/ViewProducts';
+import ProductDetail from './pages/Admin/ProductDetail';
+import AdminProfile from './pages/Admin/AdminProfile';
+import Reports from './pages/Admin/Reports';
 
 function App() {
   // ✅ useEffect correctly placed inside the component
@@ -24,6 +32,15 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterUser />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard/>} />
+        <Route path="/admin/add-user" element={<AddUser />} />
+        <Route path="/admin/view-users" element={<ViewUsers />} />
+        <Route path="/admin/user/:id" element={<UserDetail />} />
+        <Route path="/admin/add-product" element={<AddProduct />} />
+        <Route path="/admin/view-products" element={<ViewProducts />} />
+        <Route path="/admin/product/:type/:id" element={<ProductDetail />} />
+        <Route path="/admin/profile" element={<AdminProfile />} />
+        <Route path="/admin/reports" element={<Reports />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       <ScrollToTopButton />

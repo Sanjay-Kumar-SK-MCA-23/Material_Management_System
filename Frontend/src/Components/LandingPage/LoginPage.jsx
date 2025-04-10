@@ -241,7 +241,7 @@ const LoginPage = () => {
               </div>
               <div className="links">
                 <a href="#">Forgot Password</a>
-                <a href="/register">Signup</a>
+                {/* <a href="/register">Signup</a> */}
               </div>
               {error && <div className="error">{error}</div>}
               <div className="inputBox">
