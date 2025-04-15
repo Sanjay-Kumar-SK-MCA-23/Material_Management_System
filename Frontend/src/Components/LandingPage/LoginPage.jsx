@@ -197,9 +197,9 @@ const LoginPage = () => {
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
 
-      if (user.role === 'Admin') navigate('/admin-dashboard');
-      else if (user.role === 'Employee') navigate('/employee-dashboard');
-      else if (user.role === 'Servicer') navigate('/servicer-dashboard');
+      if (user.role === 'Admin') navigate('/admin/admin-dashboard');
+      else if (user.role === 'Employee') navigate('/employee/employee-dashboard');
+      else if (user.role === 'Servicer') navigate('/servicer/servicer-dashboard');
       else navigate('/');
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');

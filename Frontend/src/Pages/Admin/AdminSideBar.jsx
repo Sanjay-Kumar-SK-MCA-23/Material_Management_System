@@ -30,7 +30,7 @@ import { useNavigate } from 'react-router-dom';
 const drawerWidth = 240;
 
 const sidebarItems = [
-  { name: 'Add User', path: '/admin/add-user', icon: <PersonAddIcon /> },
+  { name: 'Add User', path: '/admin/admin-register', icon: <PersonAddIcon /> },
   { name: 'View Users', path: '/admin/view-users', icon: <GroupIcon /> },
   { name: 'Add Products', path: '/admin/add-product', icon: <AddBoxIcon /> },
   { name: 'View Products', path: '/admin/view-products', icon: <InventoryIcon /> },
